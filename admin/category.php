@@ -1,5 +1,10 @@
 <?php
+session_start();
 include("../connection/connection.php");
+
+
+$select_category = "SELECT * FROM `tbl_category`";
+$result = $conn->query($select_category);
 
 ?>
 <!DOCTYPE html>
@@ -10,7 +15,7 @@ include("../connection/connection.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Ovio - Bootstrap Based Responsive Dashboard &amp; Admin Template</title>
+    <title>Artist Category</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -33,6 +38,11 @@ include("../connection/connection.php");
     <![endif]-->
 
     <script src="plugins/charts/code/highcharts.js"></script>
+
+    <script src="plugins/charts/code/highcharts.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 
 <body class="sidebar-mini">
@@ -51,9 +61,9 @@ include("../connection/connection.php");
             <section class="content-header">
                 <h1>Basic Tables</h1>
                 <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                    <li class="active"><i class="fa fa-envelope-o"></i> Tables</li>
-                    <li class="active"><i class="fa fa-bars"></i> Basic Tables</li>
+                    <li><a href="./index.php"><i class="fa fa-home"></i> Home</a></li>
+                    <li class="active"><i class="fa fa-bars"></i> Category</li>
+                    <li class="active"><i class="fa fa-stack-exchange"></i> View Category</li>
                 </ol>
             </section>
 
@@ -63,54 +73,47 @@ include("../connection/connection.php");
 
                     <div class="col-md-12">
                         <div class="chart-box">
-                            <h4>Responsive Tables</h4>
-                            <p>Create responsive tables by wrapping any <code>.table</code> in
-                                <code>.table-responsive</code> to make them scroll horizontally on small devices (under
-                                768px). When viewing on anything larger than 768px wide, you will not see any difference
-                                in these tables.
-                            </p>
+
+                            <div class="text-right">
+                                <a href="add-category.php" class="btn btn-primary">Add Category</a>
+                            </div>
                             <div class="bs-example" data-example-id="simple-responsive-table">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Table heading</th>
-                                                <th>Table heading</th>
-                                                <th>Table heading</th>
-                                                <th>Table heading</th>
-                                                <th>Table heading</th>
-                                                <th>Table heading</th>
+
+                                                <th>Category</th>
+
+                                                <th>Created At</th>
+
+                                                <th>Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                                <td>Table cell</td>
-                                            </tr>
+
+                                            <?php
+
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    $id = $row['id'];
+                                                    $category = $row['category'];
+                                                    $created_at = $row['created_at'];
+                                            ?>
+                                                    <tr>
+                                                        <th scope="row"><?php echo $id ?></th>
+                                                        <td><?php echo $category ?></td>
+                                                        <td><?php echo $created_at ?></td>
+                                                        <td><a href="delete-category.php?id=<?php echo $id ?>" class="btn btn-danger">Delete</a></td>
+                                                    </tr>
+                                            <?php
+                                                }
+                                            } else {
+                                                echo "0 results";
+                                            }
+                                            ?>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -124,11 +127,7 @@ include("../connection/connection.php");
         </div>
         <!-- content-wrapper -->
 
-        <!-- Main Footer -->
-        <footer class="main-footer dark-bg">
-            <div class="pull-right hidden-xs"> Version 1.0</div>
-            Copyright &copy; 2017 Yourdomian. All rights reserved.
-        </footer>
+
     </div>
     <!-- wrapper -->
 
@@ -140,6 +139,21 @@ include("../connection/connection.php");
     <!-- charts -->
     <script src="plugins/charts/code/modules/exporting.js"></script>
     <script src="plugins/charts/chart-functions.js"></script>
+
+    <?php
+    if (isset($_SESSION['success'])) {
+        echo '<script>
+                toastr.success("' . $_SESSION['success'] . '");
+                </script>';
+    }
+    if (isset($_SESSION['error'])) {
+        echo '<script>
+                toastr.error("' . $_SESSION['error'] . '");
+                </script>';
+    }
+    session_unset();
+
+    ?>
 </body>
 
 </html>
