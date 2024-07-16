@@ -1,6 +1,42 @@
 <?php
 session_start();
 include "./connection/connection.php";
+
+if (isset($_COOKIE['login_bool']) || !empty($_COOKIE["user_type"])) {
+    header("Location: index.php");
+    exit();
+}
+
+if (isset($_POST['login'])) {
+
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $password = $_POST['password'];
+
+    $select_user_query = "SELECT * FROM `tbl_user` WHERE `email` = '$email'";
+
+    $result = $conn->query($select_user_query);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        if (password_verify($password, $row['password'])) {
+            $user_type = $row['role'];
+            $_SESSION['success'] = "Login Successfull";
+            setcookie("user_type", $user_type, time() + 3600, "/");
+            setcookie("login_bool", true, time() + 3600, "/");
+            setcookie("email", $email, time() + 3600, "/");
+            header("Location: index.php");
+            exit();
+        } else {
+            $_SESSION['error'] = "Password is incorrect";
+            header("Location: signin.php");
+            exit();
+        }
+    } else {
+        $_SESSION['error'] = "Email is incorrect";
+        header("Location: signin.php");
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -41,26 +77,25 @@ include "./connection/connection.php";
 
 
     <style>
-    .form-control {
-        background-color: rgba(255, 255, 255, 0.8);
-        border: 1px solid #ccc;
-        color: #000;
-    }
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ccc;
+            color: #000;
+        }
 
-    .form-control::placeholder {
-        color: #000 !important;
-    }
+        .form-control::placeholder {
+            color: #000 !important;
+        }
 
-    .category-checkboxes {
-        display: none;
-    }
+        .category-checkboxes {
+            display: none;
+        }
     </style>
 
     <!-- endbuild -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 
@@ -96,13 +131,13 @@ include "./connection/connection.php";
 
                     <form method="post">
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email" required>
+                            <input type="email" class="form-control" placeholder="Email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="password" required>
+                            <input type="password" class="form-control" placeholder="password" name="password" required>
                         </div>
 
-                        <button type="submit" class="btn btn-lg black p-x-lg">Sign in</button>
+                        <button type="submit" class="btn btn-lg black p-x-lg" name="login">Sign in</button>
                     </form>
                     <div class="m-y">
                         <a href="forgot-password.html" class="_600">Forgot password?</a>
@@ -153,20 +188,20 @@ include "./connection/connection.php";
     <!-- endbuild -->
 
     <?php
-  if (isset($_SESSION['success'])) {
-    echo '<script>
+    if (isset($_SESSION['success'])) {
+        echo '<script>
               toastr.success("' . $_SESSION['success'] . '");
               </script>';
-  }
+    }
 
-  if (isset($_SESSION['error'])) {
-    echo '<script>
+    if (isset($_SESSION['error'])) {
+        echo '<script>
               toastr.error("' . $_SESSION['error'] . '");
               </script>';
-  }
-  session_unset();
+    }
+    session_unset();
 
-  ?>
+    ?>
 </body>
 
 </html>

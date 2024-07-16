@@ -2,6 +2,11 @@
 session_start();
 include("./connection/connection.php");
 
+if (isset($_COOKIE['login_bool']) || !empty($_COOKIE["user_type"])) {
+  header("Location: index.php");
+  exit();
+}
+
 $select_category = "SELECT * FROM `tbl_category`";
 $result = $conn->query($select_category);
 $categories = [];
