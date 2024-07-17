@@ -1,8 +1,27 @@
 <?php
 session_start();
-
 include "./connection/connection.php";
 
+#query = INSERT INTO `tbl_contact`(`name`, `email`, `subject`, `message`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]')
+
+if (isset($_POST['submit'])) {
+    $name = htmlspecialchars(trim($_POST['name']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $subject = htmlspecialchars(trim($_POST['subject']));
+    $message = htmlspecialchars(trim($_POST['message']));
+    $query = "INSERT INTO `tbl_contact`(`name`, `email`, `subject`, `message`) VALUES('$name', '$email', '$subject', '$message')";
+    $result = mysqli_query($conn, $query);
+
+    if ($result) {
+        $_SESSION['success'] = "Message Sent";
+        header("Location: contact.php");
+        exit();
+    } else {
+        $_SESSION['error'] = "Message Not Sent";
+        header("Location: contact.php");
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -10,8 +29,8 @@ include "./connection/connection.php";
 
 <head>
     <meta charset="utf-8" />
-    <title>Artist Booking Online</title>
-    <meta name="description" content="Music, Musician, Bootstrap" />
+    <title>Contact Us - Artist Booking Online</title>
+    <meta name="description" content="Contact, Music, Musician, Bootstrap" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -47,7 +66,13 @@ include "./connection/connection.php";
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    </body>
+
+    <style>
+    input::placeholder {
+        color: black !important;
+        opacity: 60% !important;
+    }
+    </style>
 </head>
 
 <body>
@@ -92,105 +117,50 @@ include "./connection/connection.php";
 
                 <!-- ############ PAGE START-->
 
-
-                <div class="owl-carousel black owl-theme owl-dots-bottom-center" data-ui-jp="owlCarousel"
-                    data-ui-options="{
-             items: 1
-            ,loop: true
-            ,autoplay: true
-            ,nav: true
-          }">
-                    <div class="row-col">
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-8 text-center">
-                            <div class="p-a-lg">
-                                <h2 class="display-4 m-y-lg">A simple, fast and responsive music template</h2>
-                                <h6 class="text-muted m-b-lg">HTML5 Music Template</h6>
-                                <a href="home.html" class="btn circle btn-outline b-primary m-b-lg p-x-md">Get it
-                                    now</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-2"></div>
-                    </div>
-                    <div class="row-col">
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-8 text-center">
-                            <div class="p-a-lg">
-                                <h2 class="display-4 m-y-lg">Bootstrap 4 CSS framework</h2>
-                                <h6 class="text-muted m-b-lg">Responsive layout</h6>
-                                <a href="player.html" class="btn circle btn-outline b-primary m-b-lg p-x-md">View
-                                    App</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-2"></div>
-                    </div>
-                    <div class="row-col">
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-8 text-center">
-                            <div class="p-a-lg">
-                                <h2 class="display-4 m-y-lg">Ajax powered page switch with great experience</h2>
-                                <h6 class="text-muted m-b-lg">No refresh page when switching pages</h6>
-                                <a href="rtl.html" class="btn circle btn-outline b-primary m-b-lg p-x-md">Get RTL</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-2"></div>
-                    </div>
-                </div>
                 <div class="row-col">
-                    <div class="col-sm-6">
-                        <div class="black cover cover-gd" style="background-image: url('images/b1.jpg');">
-                            <div class="p-a-lg text-center">
-                                <h3 class="display-3 m-y-lg">Music</h3>
-                                <p class="text-muted text-md m-b-lg">Get ready for high sound quality.</p>
-                                <a href="player.html" class="btn circle white m-b-lg p-x-md">Try Free</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 black lt">
-                        <div class="black cover cover-gd" style="background-image: url('images/b7.jpg');">
-                            <div class="p-a-lg text-center">
-                                <h3 class="display-3 m-y-lg">Artists</h3>
-                                <p class="text-muted text-md m-b-lg">Listen to your favorite Artists.</p>
-                                <a href="home.html" class="btn circle white m-b-lg p-x-md">View Artists</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row-col dark-white">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
+                    <div class="col-lg-12">
                         <div class="p-a-lg text-center">
-                            <h3 class="display-4 m-y-lg">Light, Grey, Dark, Black themes</h3>
-                            <p class="text-muted text-md m-b-lg">Config any blocks with any colors</p>
-                            <a href="home.html" class="btn circle btn-outline b-black m-b-lg p-x-md">Try Settings</a>
+                            <h2 class="display-4 m-y-lg">Contact Us</h2>
                         </div>
                     </div>
-                    <div class="col-md-3"></div>
                 </div>
 
-                <div class="black cover" data-stellar-background-ratio="0.5"
-                    style="background-image: url('images/b10.jpg');">
-                    <div class="row-col">
-                        <div class="col-md-4">
-                            <div class="p-a-lg text-center">
-                                <h4 class="m-y-lg">One Css framework, Unlimited options &amp; variables</h4>
-                                <p class="text-muted text-md m-b-lg">Colors, layouts, components and widgets. we
-                                    pre-build them for you.</p>
-                            </div>
+                <div class="row-col">
+                    <div class="col-lg-6">
+                        <div class="p-a-lg">
+                            <h4 class="m-y-lg">Contact Details</h4>
+                            <p><strong>Address:</strong> 1234 Street Name, City, Country</p>
+                            <p><strong>Phone:</strong> +123 456 7890</p>
+                            <p><strong>Email:</strong> info@example.com</p>
+                            <p><strong>Working Hours:</strong> Mon - Fri, 9:00AM - 5:00PM</p>
                         </div>
-                        <div class="col-md-4">
-                            <div class="p-a-lg text-center">
-                                <h4 class="m-y-lg">Two layouts, Horizontal and side navigation</h4>
-                                <p class="text-muted text-md m-b-lg">With the flexiable layout options, you can build
-                                    responsive layouts.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="p-a-lg text-center">
-                                <h4 class="m-y-lg">Three templates, Landing, App, Site templates</h4>
-                                <p class="text-muted text-md m-b-lg">Choose the suitable one for your needs.</p>
-                            </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-a-lg">
+                            <h4 class="m-y-lg">Get in Touch</h4>
+                            <form method="POST">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject">Subject:</label>
+                                    <input type="text" class="form-control" id="subject" name="subject"
+                                        placeholder="Subject" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message:</label>
+                                    <textarea class="form-control" id="message" name="message" placeholder="Message"
+                                        rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" name="submit">Send Message</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -240,11 +210,14 @@ include "./connection/connection.php";
     <!-- endbuild -->
 
     <?php
-	if (isset($_SESSION['success'])) {
-		echo '<script>toastr.success("' . $_SESSION['success'] . '");</script>';
-	}
-	session_unset();
-	?>
+    if (isset($_SESSION['success'])) {
+        echo '<script>toastr.success("' . $_SESSION['success'] . '");</script>';
+    }
+    if(isset($_SESSION['error'])) {
+        echo '<script>toastr.error("' . $_SESSION['error'] . '");</script>';
+    }
+    session_unset();
+    ?>
 </body>
 
 </html>
