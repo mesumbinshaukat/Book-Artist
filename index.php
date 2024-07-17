@@ -243,6 +243,9 @@ include "./connection/connection.php";
 	if (isset($_SESSION['success'])) {
 		echo '<script>toastr.success("' . $_SESSION['success'] . '");</script>';
 	}
+	if(isset($_SESSION['error'])) {
+		echo '<script>toastr.error("' . $_SESSION['error'] . '");</script>';
+	}
 	session_unset();
 	?>
 </body>

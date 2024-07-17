@@ -39,11 +39,12 @@ if (isset($_POST['signup'])) {
 
   $sql = "INSERT INTO `tbl_user`(`username`, `email`, `password`, `picture`, `role`, `categories`) VALUES (?, ?, ?, ?, ?, ?)";
 
+  $custom_pic_name_time = time() . "_" . $picture_name;
+
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param("ssssss", $username, $email, $password, $picture_name, $accountType, $categories);
+  $stmt->bind_param("ssssss", $username, $email, $password, $custom_pic_name_time, $accountType, $categories);
 
   if ($stmt->execute()) {
-    $custom_pic_name_time = time() . "_" . $picture_name;
     $upload_image = move_uploaded_file($picture_temp_name, ($accountType == "artist" ? "./artist/images/" : "./user/images/") . $custom_pic_name_time);
 
     if (!$upload_image) {

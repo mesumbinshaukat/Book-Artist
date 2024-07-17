@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_COOKIE['login_bool']) || empty($_COOKIE["user_type"])) {
-    header("Location: signin.php");
+    header("Location: ../signin.php");
     exit();
 }
 
