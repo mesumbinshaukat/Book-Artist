@@ -3,6 +3,7 @@ session_start();
 
 include "./connection/connection.php";
 
+$_SESSION["previous_url"] = $_SERVER["REQUEST_URI"];
 ?>
 
 <!DOCTYPE html>
@@ -240,14 +241,14 @@ include "./connection/connection.php";
     <!-- endbuild -->
 
     <?php
-	if (isset($_SESSION['success'])) {
-		echo '<script>toastr.success("' . $_SESSION['success'] . '");</script>';
-	}
-	if(isset($_SESSION['error'])) {
-		echo '<script>toastr.error("' . $_SESSION['error'] . '");</script>';
-	}
-	session_unset();
-	?>
+    if (isset($_SESSION['success'])) {
+        echo '<script>toastr.success("' . $_SESSION['success'] . '");</script>';
+    }
+    if (isset($_SESSION['error'])) {
+        echo '<script>toastr.error("' . $_SESSION['error'] . '");</script>';
+    }
+    session_unset();
+    ?>
 </body>
 
 </html>

@@ -1,6 +1,8 @@
 <?php
 session_start();
 include "./connection/connection.php";
+
+$_SESSION["previous_url"] = $_SERVER["REQUEST_URI"];
 ?>
 
 <!DOCTYPE html>
@@ -42,43 +44,44 @@ include "./connection/connection.php";
     <!-- endbuild -->
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <style>
+    .text-md {
+        font-size: 1.25rem;
+    }
+
+    .cover-gd {
+        background-size: cover;
+        background-position: center;
+    }
+
+    @media (max-width: 768px) {
+
+
+        .display-4 {
+            font-size: 2.5rem;
+            /* Increased font size */
+        }
+
         .text-md {
             font-size: 1.25rem;
+            /* Increased font size */
         }
 
-        .cover-gd {
-            background-size: cover;
-            background-position: center;
+        .p-a-lg {
+            padding: 2rem !important;
+            /* Adjusted padding */
         }
 
-        @media (max-width: 768px) {
 
+    }
 
-            .display-4 {
-                font-size: 2.5rem;
-                /* Increased font size */
-            }
-
-            .text-md {
-                font-size: 1.25rem;
-                /* Increased font size */
-            }
-
-            .p-a-lg {
-                padding: 2rem !important;
-                /* Adjusted padding */
-            }
-
-
-        }
-
-        .app-content {
-            overflow-x: hidden;
-        }
+    .app-content {
+        overflow-x: hidden;
+    }
     </style>
 </head>
 
@@ -91,7 +94,8 @@ include "./connection/connection.php";
         <div id="content" class="app-content" role="main">
             <div class="app-header navbar-md black box-shadow-z1">
                 <div class="navbar" data-pjax>
-                    <a data-toggle="collapse" data-target="#navbar" class="navbar-item pull-right hidden-md-up m-r-0 m-l">
+                    <a data-toggle="collapse" data-target="#navbar"
+                        class="navbar-item pull-right hidden-md-up m-r-0 m-l">
                         <i class="material-icons">menu</i>
                     </a>
                     <!-- brand -->

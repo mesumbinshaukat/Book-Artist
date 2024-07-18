@@ -22,6 +22,8 @@ if (isset($_POST['submit'])) {
         exit();
     }
 }
+
+$_SESSION["previous_url"] = $_SERVER["REQUEST_URI"];
 ?>
 
 <!DOCTYPE html>
@@ -213,7 +215,7 @@ if (isset($_POST['submit'])) {
     if (isset($_SESSION['success'])) {
         echo '<script>toastr.success("' . $_SESSION['success'] . '");</script>';
     }
-    if(isset($_SESSION['error'])) {
+    if (isset($_SESSION['error'])) {
         echo '<script>toastr.error("' . $_SESSION['error'] . '");</script>';
     }
     session_unset();
