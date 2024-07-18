@@ -12,6 +12,5 @@ $password = $_ENV['password'];
 $dbname = $_ENV['database_name'];
 $port = $_ENV['port'];
 
-// $conn = mysqli_connect("localhost", "root", "", "db_artist", 3306) or die("Connection failed: " . mysqli_connect_error());
-
 $conn = mysqli_connect($hostname, $username, $password, $dbname, $port) or die("Connection failed: " . mysqli_connect_error());
+// $conn = mysqli_connect($hostname, $username, $password, $dbname) or die("Connection failed: " . mysqli_connect_error());

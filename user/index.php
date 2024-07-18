@@ -3,7 +3,7 @@ session_start();
 
 include "../connection/connection.php";
 require __DIR__ . '/partials/user_info_func.php';
-if (!isset($_COOKIE['login_bool']) || empty($_COOKIE["user_type"])) {
+if (!isset($_COOKIE['login_bool']) || empty($_COOKIE["user_type"]) || $_COOKIE["user_type"] != "user") {
   $_SESSION["error"] = "Please Login First";
   header("Location: ../signin.php");
   exit();

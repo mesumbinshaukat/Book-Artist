@@ -1,8 +1,11 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 include "./connection/connection.php";
 
-require __DIR__ . './user/partials/user_info_func.php';
+require __DIR__ . '/user/partials/user_info_func.php';
 
 
 if (!isset($_COOKIE['login_bool']) || empty($_COOKIE["user_type"])) {
@@ -38,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $status = "Pending"; // Default status
     $price = $booking_fees;
 
-    $sql = "INSERT INTO tbl_booking (`artist_id`, `username`, `email`, `user_id`, `booking_schedule`, `address`, `phone_number`, `status`, `price`) 
+    $sql = "INSERT INTO `tbl_booking` (`artist_id`, `username`, `email`, `user_id`, `booking_schedule`, `address`, `phone_number`, `status`, `price`) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);

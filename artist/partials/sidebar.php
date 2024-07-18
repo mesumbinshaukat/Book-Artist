@@ -1,6 +1,6 @@
 <aside class="main-sidebar dark-bg">
     <section class="sidebar">
-        <div class="user-panel black-bg">
+        <div class="user-panel black-bg" style="padding-bottom:10% !important;">
             <div class="pull-left image"> <img src="./images/<?php echo $picture; ?>" class="img-circle"
                     alt="User Image">
             </div>

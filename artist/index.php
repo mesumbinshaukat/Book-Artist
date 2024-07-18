@@ -4,9 +4,9 @@ include "../connection/connection.php";
 
 require __DIR__ . '/partials/user_info_func.php';
 
-if (!isset($_COOKIE['login_bool']) || empty($_COOKIE["user_type"])) {
-  header("Location: ../signin.php");
-  exit();
+if (!isset($_COOKIE['login_bool']) || empty($_COOKIE["user_type"]) || $_COOKIE["user_type"] != "artist") {
+    header("Location: ../signin.php");
+    exit();
 }
 
 $details_arr = get_user_info($_COOKIE["email"], $conn);
@@ -522,14 +522,14 @@ $picture = $details_arr["picture"];
     <script src="plugins/charts/chart-functions.js"></script>
 
     <?php
-  if (isset($_SESSION['success'])) {
-    echo '<script>toastr.success("' . $_SESSION['success'] . '");</script>';
-  }
-  if (isset($_SESSION['error'])) {
-    echo '<script>toastr.error("' . $_SESSION['error'] . '");</script>';
-  }
-  session_unset();
-  ?>
+    if (isset($_SESSION['success'])) {
+        echo '<script>toastr.success("' . $_SESSION['success'] . '");</script>';
+    }
+    if (isset($_SESSION['error'])) {
+        echo '<script>toastr.error("' . $_SESSION['error'] . '");</script>';
+    }
+    session_unset();
+    ?>
 </body>
 
 </html>
