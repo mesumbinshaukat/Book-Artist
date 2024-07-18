@@ -22,20 +22,20 @@
                     </div>
                 </div>
                 <div class="col-sm-2 col-xs-6">
-                    <h6 class="text-u-c m-b text-muted">About</h6>
+                    <h6 class="text-u-c m-b text-muted">Sitemap</h6>
                     <div class="m-b-md">
                         <ul class="nav l-h-2x _600">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">About us</a>
+                                <a class="nav-link" href="index.php">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Mobile apps</a>
+                                <a class="nav-link" href="about.php">About Us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Blog</a>
+                                <a class="nav-link" href="artist.php">Artists</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Jobs</a>
+                                <a class="nav-link" href="contact.php">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -79,18 +79,17 @@
                     <h6 class="text-u-c m-b text-muted">Subscribe</h6>
                     <p>Do not want to miss our newsletter?</p>
                     <form class="m-b-lg">
-                        <input type="text" class="form-control" placeholder="Your email">
+                        <input type="text" style="opacity: 80% !important; color: black;" class="form-control"
+                            placeholder="Your email">
                         <button type="submit" class="btn btn-sm btn-outline b-dark rounded m-t">Subscribe</button>
                     </form>
                 </div>
             </div>
             <div class="b b-b m-b m-t-lg"></div>
             <div class="row">
-                <div class="col-sm-8">
-                    <a href="#"="#" class="text-muted text-sm">Cookies</a>
-                </div>
-                <div class="col-sm-4">
-                    <div class="text-sm-right text-xs-left">
+
+                <div class="col-sm-12">
+                    <div class="text-sm-center text-xs-left">
                         <small class="text-muted">&copy; Copyright. All rights reserved.</small>
                     </div>
                 </div>

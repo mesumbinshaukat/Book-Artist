@@ -13,6 +13,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header dark-bg">Menu</li>
             <li> <a href="index.php"> <i class="fa fa-dashboard"></i> <span>Dashboard</span></a> </li>
+            <li> <a href="bookings.php"> <i class="fa fa-bookmark"></i> <span>Bookings</span></a> </li>
 
         </ul>
         <!-- sidebar-menu -->
